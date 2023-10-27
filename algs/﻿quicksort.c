@@ -2,9 +2,6 @@
 #include<conio.h>
 #include<stdlib.h>
 
-//Define o tam que o vetor tem
-#define tamanho 7
-
 //Algoritmo de ordenacao QuickSort
 void QuickSort(int* v, int tam) {
 	int j = tam, k;
@@ -45,11 +42,12 @@ void QuickSort(int* v, int tam) {
 int main()
 {
 	int a[] = { 37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54 };
+	int n = sizeof(a) / sizeof(a[0]);
 	
-	QuickSort(a, tamanho);
+	QuickSort(a, n);
 
 	printf("Sorted array: \n");
-	for (int i = 0; i < tamanho; i++)
+	for (int i = 0; i < n; i++)
 		printf("%d ", a[i]);
 
 	return 0;
