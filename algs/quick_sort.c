@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include "quick_sort.h"
+#include "sorting_algorithms.h"
 
 //Define o tam que o vetor tem
 #define tamanho 7
