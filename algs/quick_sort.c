@@ -26,9 +26,6 @@ void quick_sort(int* v, int tam) {
                 a++;
                 b--;
             }
-            for (k = 0; k < j; k++)
-                printf("%d ", v[k]);
-            printf("\n");
         } while (a <= b);
         // troca pivo
         v[0] = v[b];
@@ -36,8 +33,5 @@ void quick_sort(int* v, int tam) {
         // ordena sub-vetores restantes
         quick_sort(v, b);
         quick_sort(&v[a], tam - a);
-        for (k = 0; k < j; k++)
-            printf("%d ", v[k]);
-        printf("\n");
     }
 }

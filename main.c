@@ -6,9 +6,13 @@
 #include "algs/sorting_algorithms.h"
 
 FILE *openFile(char file_name[]) {
+    // Trocar a string abaixo dependendo do diretório de onde foi baixado e onde está armazenado os dados
+    // ex: "/home/fabiano/CLionProjects/sorting-algorithms/data/"
+    // para descobrir o caminho do diretório ao baixar esse projeto, se estiver no linux pode executar os seguintes comandos:
+    // cd data
+    // pwd
     char directory[128] = "/home/fabiano/CLionProjects/sorting-algorithms/data/";
     strncat(directory, file_name, sizeof(directory) - strlen(directory) - 1);
-    printf("AQUI: %s", directory);
 
     if(access(directory, F_OK) == -1){
         perror("Erro ao acessar o arquivo");
@@ -24,23 +28,23 @@ FILE *openFile(char file_name[]) {
 }
 
 void testSortingAlgorithm(const char* algorithmName, void (*sortFunction)(int[], int), int arr[], int size) {
-    clock_t start, end;
+    struct timespec start, end;
     double cpu_time_used;
 
-    start = clock();
+    clock_gettime(CLOCK_MONOTONIC, &start);
     sortFunction(arr, size);
-    end = clock();
+    clock_gettime(CLOCK_MONOTONIC, &end);
 
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    cpu_time_used = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
 
     printf("%s took %f seconds to execute\n", algorithmName, cpu_time_used);
 }
 
 int main() {
     FILE *file;
-    char file_name[] = "dtdecre10uni0.txt10uni1.txt";
+    char file_name[] = "dtaleat50kdup1.txt";
     char line[100];
-    int dataArray[100];
+    int dataArray[50000];
     int index = 0;
 
     file = openFile(file_name);
@@ -50,19 +54,14 @@ int main() {
         int value = atoi(line);
         dataArray[index] = value;
         index++;
-        printf("%s", line);
     }
 
-    printf("Dados armazenados no array:\n");
-    for (int i = 0; i < index; i++) {
-        printf("%d\n", dataArray[i]);
-    }
     fclose(file);
 
     testSortingAlgorithm("Quick Sort", quick_sort, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
-//    testSortingAlgorithm("Binary Insertion Sort", insertion_sort, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
-//    testSortingAlgorithm("Radix Sort LSD", radix_sort_lsd_start, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
-//    testSortingAlgorithm("Radix Sort MSD", radix_sort_msd_start, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
+    testSortingAlgorithm("Binary Insertion Sort", insertion_sort, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
+    testSortingAlgorithm("Radix Sort LSD", radix_sort_lsd_start, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
+    testSortingAlgorithm("Radix Sort MSD", radix_sort_msd_start, dataArray, sizeof(dataArray) / sizeof(dataArray[0]));
 
     return 0;
 }

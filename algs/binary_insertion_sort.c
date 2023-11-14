@@ -41,16 +41,3 @@ void insertion_sort(int a[], int n) {
 	}
 }
 
-// Driver Code
-//int main() {
-//	int a[] = { 37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54 };
-//	int n = sizeof(a) / sizeof(a[0]), i;
-//
-//	insertion_sort(a, n);
-//
-//	printf("Sorted array: \n");
-//	for (i = 0; i < n; i++)
-//		printf("%d ", a[i]);
-//
-//	return 0;
-//}
